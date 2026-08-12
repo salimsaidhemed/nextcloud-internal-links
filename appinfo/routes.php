@@ -16,5 +16,15 @@ return [
             'url' => '/sites',
             'verb' => 'POST',
         ],
+        [
+            'name' => 'branding#index',
+            'url' => '/branding',
+            'verb' => 'GET',
+        ],
+        [
+            'name' => 'branding#save',
+            'url' => '/branding',
+            'verb' => 'POST',
+        ],
     ],
 ];
