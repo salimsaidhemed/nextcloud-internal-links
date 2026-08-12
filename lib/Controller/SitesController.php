@@ -57,6 +57,7 @@ class SitesController extends Controller
             $url = trim((string)($site['url'] ?? ''));
             $icon = trim((string)($site['icon'] ?? 'activity'));
             $category = trim((string)($site['category'] ?? ''));
+            $description = trim((string)($site['description'] ?? ''));
 
             if ($name === '' || $url === '') {
                 continue;
@@ -77,11 +78,16 @@ class SitesController extends Controller
                 $category = mb_substr($category, 0, 80);
             }
 
+            if (mb_strlen($description) > 160) {
+                $description = mb_substr($description, 0, 160);
+            }
+
             $cleanSites[] = [
                 'name' => $name,
                 'url' => $url,
                 'icon' => $icon,
                 'category' => $category,
+                'description' => $description,
             ];
         }
 

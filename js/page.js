@@ -100,8 +100,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         link.href = site.url;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.dataset.searchText = String(site.name || '').toLocaleLowerCase();
-        link.setAttribute('aria-label', `Open ${site.name} in a new tab`);
+
+        const searchText = [site.name, site.description, site.category]
+            .map(value => String(value || '').toLocaleLowerCase())
+            .join(' ');
+        link.dataset.searchText = searchText;
+
+        const descriptionText = String(site.description || '').trim();
+        const accessibleName = descriptionText
+            ? `Open ${site.name}: ${descriptionText} in a new tab`
+            : `Open ${site.name} in a new tab`;
+        link.setAttribute('aria-label', accessibleName);
 
         const iconWrapper = document.createElement('div');
         iconWrapper.className = 'application-icon-wrapper';
@@ -117,6 +126,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         external.setAttribute('aria-hidden', 'true');
 
         link.append(external, iconWrapper, title);
+
+        if (descriptionText) {
+            const description = document.createElement('div');
+            description.className = 'application-description';
+            description.textContent = descriptionText;
+            link.appendChild(description);
+        }
+
         return link;
     }
 
