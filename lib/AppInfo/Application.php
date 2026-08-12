@@ -36,19 +36,15 @@ class Application extends App implements IBootstrap
         ): array {
             return [
                 'id' => self::APP_ID,
-
                 'order' => 20,
-
                 'href' => $urlGenerator->linkToRoute(
                     'internal_links.page.index'
                 ),
-
                 'icon' => $urlGenerator->imagePath(
                     self::APP_ID,
-                    'app.svg'
+                    'app-nav.svg'
                 ),
-
-                'name' => 'Internal Links ',
+                'name' => 'Internal Links',
             ];
         });
     }
