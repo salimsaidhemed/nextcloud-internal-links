@@ -42,4 +42,10 @@ style('internal_links', 'page');
             </div>
         </main>
     </section>
+
+    <footer class="internal-links-footer">
+        <span>Internal Links</span>
+        <span aria-hidden="true">·</span>
+        <span>v<?php p($_['version'] ?? '0'); ?></span>
+    </footer>
 </div>
