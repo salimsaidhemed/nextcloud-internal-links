@@ -9,6 +9,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 
 class PageController extends Controller
@@ -18,6 +19,7 @@ class PageController extends Controller
     public function __construct(
         IRequest $request,
         private IAppManager $appManager,
+        private IConfig $config,
     ) {
         parent::__construct(self::APP_ID, $request);
     }
@@ -26,11 +28,27 @@ class PageController extends Controller
     #[NoCSRFRequired]
     public function index(): TemplateResponse
     {
+        $displayName = trim($this->config->getAppValue(
+            self::APP_ID,
+            'display_name',
+            'Business Links'
+        ));
+
+        if ($displayName === '') {
+            $displayName = 'Business Links';
+        }
+
         return new TemplateResponse(
             self::APP_ID,
             'index',
             [
                 'version' => $this->appManager->getAppVersion(self::APP_ID),
+                'displayName' => $displayName,
+                'subtitle' => $this->config->getAppValue(
+                    self::APP_ID,
+                    'subtitle',
+                    'Quick access to business services.'
+                ),
             ]
         );
     }

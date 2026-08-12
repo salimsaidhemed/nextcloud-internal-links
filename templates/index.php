@@ -6,8 +6,10 @@ style('internal_links', 'page');
 <div id="internal-links-app">
     <header class="applications-header">
         <div>
-            <h1>Internal Links</h1>
-            <p>Quick access to internal and business services.</p>
+            <h1><?php p($_['displayName'] ?? 'Business Links'); ?></h1>
+            <?php if (trim((string)($_['subtitle'] ?? '')) !== ''): ?>
+                <p><?php p($_['subtitle']); ?></p>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -44,7 +46,7 @@ style('internal_links', 'page');
     </section>
 
     <footer class="internal-links-footer">
-        <span>Internal Links</span>
+        <span><?php p($_['displayName'] ?? 'Business Links'); ?></span>
         <span aria-hidden="true">·</span>
         <span>v<?php p($_['version'] ?? '0'); ?></span>
     </footer>
