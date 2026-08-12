@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace OCA\InternalLinks\Sections;
 
-use OCP\IL10N;
+use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;
 
 class InternalLinksSection implements IIconSection
 {
     public function __construct(
-        private IL10N $l10n,
         private IURLGenerator $urlGenerator,
+        private IConfig $config,
     ) {
     }
 
@@ -23,7 +23,8 @@ class InternalLinksSection implements IIconSection
 
     public function getName(): string
     {
-        return $this->l10n->t('Internal Links');
+        $name = trim($this->config->getAppValue('internal_links', 'display_name', 'Business Links'));
+        return $name !== '' ? $name : 'Business Links';
     }
 
     public function getPriority(): int
