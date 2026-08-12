@@ -8,7 +8,7 @@ style('internal_links', 'admin');
 
 <div id="internal-links-admin" class="section">
 
-    <h2>Business Links</h2>
+    <h2><?php p($_['displayName'] ?? 'Business Links'); ?></h2>
 
     <p class="settings-hint">
         Configure the launcher branding and the links shown to users.
@@ -25,7 +25,7 @@ style('internal_links', 'admin');
                 maxlength="60"
                 placeholder="Business Links"
             >
-            <p class="settings-hint">Shown in the top navigation, page title and footer.</p>
+            <p class="settings-hint">Shown in the top navigation, page title, settings section and footer.</p>
         </div>
 
         <div class="branding-field">
