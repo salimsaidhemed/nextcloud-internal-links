@@ -48,6 +48,10 @@
     min-width: 0;
 }
 
+.site-description {
+    grid-column: 1 / -1;
+}
+
 .internal-links-site input,
 .internal-links-site select {
     width: 100%;
@@ -88,6 +92,10 @@
     .site-fields {
         grid-column: 2;
         grid-template-columns: 1fr;
+    }
+
+    .site-description {
+        grid-column: auto;
     }
 
     .site-icon {
