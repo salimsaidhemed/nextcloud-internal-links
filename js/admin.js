@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addButton = document.getElementById('internal-links-add');
     const saveButton = document.getElementById('internal-links-save');
     const message = document.getElementById('internal-links-message');
+    const iconCache = new Map();
 
     if (!container) {
         return;
@@ -26,6 +27,61 @@ document.addEventListener('DOMContentLoaded', async () => {
         return OC.filePath('internal_links', 'img', `icons/${icon}.svg`);
     }
 
+    function safeIconName(icon) {
+        const value = String(icon || 'activity');
+        return /^[a-z0-9-]+$/.test(value) ? value : 'activity';
+    }
+
+    async function getIconSvg(iconName) {
+        const safeName = safeIconName(iconName);
+
+        if (!iconCache.has(safeName)) {
+            iconCache.set(
+                safeName,
+                fetch(iconPath(safeName), { credentials: 'same-origin' })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Unable to load icon ${safeName}`);
+                        }
+                        return response.text();
+                    })
+                    .then(source => {
+                        const documentSvg = new DOMParser().parseFromString(source, 'image/svg+xml');
+                        const svg = documentSvg.documentElement;
+
+                        if (!svg || svg.nodeName.toLowerCase() !== 'svg') {
+                            throw new Error(`Invalid icon ${safeName}`);
+                        }
+
+                        svg.removeAttribute('class');
+                        return svg;
+                    })
+            );
+        }
+
+        const svg = await iconCache.get(safeName);
+        return svg.cloneNode(true);
+    }
+
+    async function renderIcon(containerElement, iconName) {
+        containerElement.replaceChildren();
+
+        try {
+            const svg = await getIconSvg(iconName);
+            svg.classList.add('site-icon-preview');
+            svg.setAttribute('aria-hidden', 'true');
+            svg.setAttribute('focusable', 'false');
+            containerElement.appendChild(svg);
+        } catch (error) {
+            console.warn('Internal Links icon:', error);
+            const fallback = document.createElement('span');
+            fallback.className = 'site-icon-preview site-icon-fallback';
+            fallback.textContent = '•';
+            fallback.setAttribute('aria-hidden', 'true');
+            containerElement.appendChild(fallback);
+        }
+    }
+
     function moveRow(row, direction) {
         if (direction === 'up' && row.previousElementSibling) {
             container.insertBefore(row, row.previousElementSibling);
@@ -42,12 +98,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const preview = document.createElement('div');
         preview.className = 'site-icon-wrapper';
-
-        const previewImage = document.createElement('img');
-        previewImage.className = 'site-icon-preview';
         const selectedIcon = site.icon || 'activity';
-        previewImage.src = iconPath(selectedIcon);
-        preview.appendChild(previewImage);
+        renderIcon(preview, selectedIcon);
 
         const fields = document.createElement('div');
         fields.className = 'site-fields';
@@ -85,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         icon.addEventListener('change', () => {
-            previewImage.src = iconPath(icon.value);
+            renderIcon(preview, icon.value);
         });
 
         const actions = document.createElement('div');

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const grid = document.getElementById('applications-grid');
     const count = document.getElementById('applications-count');
     const search = document.getElementById('applications-search');
+    const iconCache = new Map();
 
     if (!grid) {
         return;
@@ -9,6 +10,61 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function iconPath(icon) {
         return OC.filePath('internal_links', 'img', `icons/${icon}.svg`);
+    }
+
+    function safeIconName(icon) {
+        const value = String(icon || 'activity');
+        return /^[a-z0-9-]+$/.test(value) ? value : 'activity';
+    }
+
+    async function getIconSvg(iconName) {
+        const safeName = safeIconName(iconName);
+
+        if (!iconCache.has(safeName)) {
+            iconCache.set(
+                safeName,
+                fetch(iconPath(safeName), { credentials: 'same-origin' })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Unable to load icon ${safeName}`);
+                        }
+                        return response.text();
+                    })
+                    .then(source => {
+                        const documentSvg = new DOMParser().parseFromString(source, 'image/svg+xml');
+                        const svg = documentSvg.documentElement;
+
+                        if (!svg || svg.nodeName.toLowerCase() !== 'svg') {
+                            throw new Error(`Invalid icon ${safeName}`);
+                        }
+
+                        svg.removeAttribute('class');
+                        return svg;
+                    })
+            );
+        }
+
+        const svg = await iconCache.get(safeName);
+        return svg.cloneNode(true);
+    }
+
+    async function renderIcon(container, iconName, className) {
+        container.replaceChildren();
+
+        try {
+            const svg = await getIconSvg(iconName);
+            svg.classList.add(className);
+            svg.setAttribute('aria-hidden', 'true');
+            svg.setAttribute('focusable', 'false');
+            container.appendChild(svg);
+        } catch (error) {
+            console.warn('Internal Links icon:', error);
+            const fallback = document.createElement('span');
+            fallback.className = `${className} application-icon-fallback`;
+            fallback.textContent = '•';
+            fallback.setAttribute('aria-hidden', 'true');
+            container.appendChild(fallback);
+        }
     }
 
     function setCount(visible, total) {
@@ -49,12 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const iconWrapper = document.createElement('div');
         iconWrapper.className = 'application-icon-wrapper';
-
-        const icon = document.createElement('img');
-        icon.className = 'application-icon';
-        icon.src = iconPath(site.icon || 'activity');
-        icon.alt = '';
-        icon.setAttribute('aria-hidden', 'true');
+        renderIcon(iconWrapper, site.icon || 'activity', 'application-icon');
 
         const title = document.createElement('div');
         title.className = 'application-title';
@@ -65,9 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         external.textContent = '↗';
         external.setAttribute('aria-hidden', 'true');
 
-        iconWrapper.appendChild(icon);
         link.append(external, iconWrapper, title);
-
         return link;
     }
 
