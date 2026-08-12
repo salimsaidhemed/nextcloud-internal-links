@@ -71,6 +71,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         return link;
     }
 
+    function createCategory(name) {
+        const section = document.createElement('section');
+        section.className = 'application-category';
+
+        const heading = document.createElement('h2');
+        heading.className = 'application-category-title';
+        heading.textContent = name;
+
+        const categoryGrid = document.createElement('div');
+        categoryGrid.className = 'application-category-grid';
+
+        section.append(heading, categoryGrid);
+        return { section, categoryGrid };
+    }
+
     try {
         const response = await fetch(
             OC.generateUrl('/apps/internal_links/sites'),
@@ -105,8 +120,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const cards = sites.map(createApplicationCard);
-        cards.forEach(card => grid.appendChild(card));
+        const categoryMap = new Map();
+        const cards = [];
+
+        sites.forEach(site => {
+            const categoryName = String(site.category || '').trim() || 'Other';
+
+            if (!categoryMap.has(categoryName)) {
+                const category = createCategory(categoryName);
+                categoryMap.set(categoryName, category);
+                grid.appendChild(category.section);
+            }
+
+            const card = createApplicationCard(site);
+            categoryMap.get(categoryName).categoryGrid.appendChild(card);
+            cards.push(card);
+        });
+
         setCount(cards.length, cards.length);
 
         function applyFilter() {
@@ -119,6 +149,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (matches) {
                     visible += 1;
                 }
+            });
+
+            categoryMap.forEach(({ section, categoryGrid }) => {
+                const categoryHasVisibleCards = [...categoryGrid.querySelectorAll('.application-card')]
+                    .some(card => !card.hidden);
+                section.hidden = !categoryHasVisibleCards;
             });
 
             const existingNoResults = grid.querySelector('.applications-no-results');
