@@ -35,6 +35,17 @@
     margin: 5px 0 0;
 }
 
+.branding-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+#internal-links-branding-message {
+    color: var(--color-text-maxcontrast);
+}
+
 .internal-links-site {
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr) 150px auto;
