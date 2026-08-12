@@ -1,6 +1,7 @@
 <?php
 
 script('internal_links', 'admin');
+script('internal_links', 'branding-admin');
 style('internal_links', 'admin');
 
 ?>
@@ -36,6 +37,13 @@ style('internal_links', 'admin');
                 placeholder="Quick access to business services."
             >
             <p class="settings-hint">Optional text shown beneath the page title.</p>
+        </div>
+
+        <div class="branding-actions">
+            <button id="internal-links-branding-save" type="button" class="button primary">
+                Save appearance
+            </button>
+            <span id="internal-links-branding-message" aria-live="polite"></span>
         </div>
     </section>
 
