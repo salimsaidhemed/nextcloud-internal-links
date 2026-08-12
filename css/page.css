@@ -1,0 +1,227 @@
+#internal-links-app {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 36px 48px;
+    box-sizing: border-box;
+}
+
+
+/* Header */
+.applications-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.applications-header h1 {
+    margin: 0 0 4px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: var(--color-main-text);
+}
+
+.applications-header p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: var(--color-text-maxcontrast);
+}
+
+
+/* Explorer-style window */
+.applications-window {
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+
+    background: var(--color-main-background);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Toolbar */
+.applications-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 16px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background: var(--color-background-hover);
+}
+
+.applications-toolbar-title {
+    font-size: 14px;
+    font-weight: 600;
+
+    color: var(--color-main-text);
+}
+
+.applications-toolbar-count {
+    font-size: 13px;
+
+    color: var(--color-text-maxcontrast);
+}
+
+
+/* Main icon area */
+#applications-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(120px, 1fr));
+
+    gap: 14px;
+
+    padding: 22px;
+
+    align-items: start;
+}
+
+
+/* Compact explorer icon */
+.application-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    min-height: 110px;
+
+    padding: 14px 10px;
+
+    box-sizing: border-box;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: var(--color-main-text) !important;
+    text-decoration: none !important;
+
+    transition:
+        background-color 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease;
+}
+
+.application-card:hover {
+    background: var(--color-background-hover);
+
+    border-color: var(--color-border);
+
+    transform: translateY(-1px);
+}
+
+
+/* Smaller icon container */
+.application-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 10px;
+
+    border-radius: 12px;
+
+    background: var(--color-background-hover);
+}
+
+
+/* Smaller SVG */
+.application-icon {
+    width: 26px;
+    height: 26px;
+
+    object-fit: contain;
+}
+
+
+/* Filename-style label */
+.application-title {
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25;
+
+    color: var(--color-main-text);
+
+    overflow-wrap: anywhere;
+}
+
+
+/* External indicator */
+.application-external {
+    position: absolute;
+
+    top: 8px;
+    right: 8px;
+
+    font-size: 13px;
+
+    opacity: 0;
+
+    color: var(--color-text-maxcontrast);
+
+    transition: opacity 140ms ease;
+}
+
+.application-card:hover .application-external {
+    opacity: 1;
+}
+
+
+/* Empty/error states */
+.applications-loading,
+.applications-empty,
+.applications-error {
+    grid-column: 1 / -1;
+
+    padding: 48px 20px;
+
+    text-align: center;
+
+    color: var(--color-text-maxcontrast);
+}
+
+
+/* Responsive */
+@media (max-width: 700px) {
+
+    #internal-links-app {
+        padding: 20px 16px 32px;
+    }
+
+    #applications-grid {
+        grid-template-columns:
+            repeat(auto-fill, minmax(95px, 1fr));
+
+        gap: 10px;
+
+        padding: 16px;
+    }
+
+    .application-card {
+        min-height: 100px;
+    }
+}

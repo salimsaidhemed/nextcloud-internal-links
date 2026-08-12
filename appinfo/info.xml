@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>internal_links</id>
+    <name>Internal Links</name>
+    <summary>Internal application launcher</summary>
+    <description>
+        Provides a configurable application launcher for internal
+        and business services.
+    </description>
+    <version>1.0.1</version>
+    <licence>agpl</licence>
+    <author>TCADC</author>
+    <namespace>InternalLinks</namespace>
+    <category>customization</category>
+    <dependencies>
+        <nextcloud min-version="31" max-version="31"/>
+    </dependencies>
+    <settings>
+        <admin>OCA\InternalLinks\Settings\Admin</admin>
+        <admin-section>OCA\InternalLinks\Sections\InternalLinksSection</admin-section>
+    </settings>
+</info>
