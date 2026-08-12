@@ -10,18 +10,32 @@ style('internal_links', 'page');
             <p>Quick access to internal and business services.</p>
         </div>
     </header>
+
     <section class="applications-window">
         <div class="applications-toolbar">
-            <div class="applications-toolbar-title">
-                Applications
+            <div class="applications-toolbar-title">Applications</div>
+
+            <div class="applications-toolbar-search">
+                <label class="visually-hidden" for="applications-search">Search applications</label>
+                <input
+                    id="applications-search"
+                    class="applications-search-input"
+                    type="search"
+                    placeholder="Search applications"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
             </div>
+
             <div
                 id="applications-count"
                 class="applications-toolbar-count"
+                aria-live="polite"
             >
                 Loading…
             </div>
         </div>
+
         <main id="applications-grid">
             <div class="applications-loading">
                 Loading applications…
