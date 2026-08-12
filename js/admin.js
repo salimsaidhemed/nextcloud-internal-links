@@ -123,7 +123,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         category.maxLength = 80;
         category.value = site.category || '';
 
-        fields.append(name, url, category);
+        const description = document.createElement('input');
+        description.type = 'text';
+        description.className = 'site-description';
+        description.placeholder = 'Short description (optional)';
+        description.maxLength = 160;
+        description.value = site.description || '';
+
+        fields.append(name, url, category, description);
 
         const icon = document.createElement('select');
         icon.className = 'site-icon';
@@ -194,10 +201,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const name = row.querySelector('.site-name').value.trim();
             const url = row.querySelector('.site-url').value.trim();
             const category = row.querySelector('.site-category').value.trim();
+            const description = row.querySelector('.site-description').value.trim();
             const icon = row.querySelector('.site-icon').value;
 
             if (name && url) {
-                sites.push({ name, url, icon, category });
+                sites.push({ name, url, icon, category, description });
             }
         });
 
