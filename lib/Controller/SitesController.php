@@ -38,21 +38,14 @@ class SitesController extends Controller
     #[NoAdminRequired]
     public function index(): JSONResponse
     {
-        $json = $this->config->getAppValue(
-            self::APP_ID,
-            'sites',
-            '[]'
-        );
-
+        $json = $this->config->getAppValue(self::APP_ID, 'sites', '[]');
         $sites = json_decode($json, true);
 
         if (!is_array($sites)) {
             $sites = [];
         }
 
-        return new JSONResponse([
-            'sites' => $sites,
-        ]);
+        return new JSONResponse(['sites' => $sites]);
     }
 
     public function save(array $sites): JSONResponse
@@ -63,6 +56,7 @@ class SitesController extends Controller
             $name = trim((string)($site['name'] ?? ''));
             $url = trim((string)($site['url'] ?? ''));
             $icon = trim((string)($site['icon'] ?? 'activity'));
+            $category = trim((string)($site['category'] ?? ''));
 
             if ($name === '' || $url === '') {
                 continue;
@@ -79,20 +73,22 @@ class SitesController extends Controller
                 $icon = 'activity';
             }
 
+            if (mb_strlen($category) > 80) {
+                $category = mb_substr($category, 0, 80);
+            }
+
             $cleanSites[] = [
                 'name' => $name,
                 'url' => $url,
                 'icon' => $icon,
+                'category' => $category,
             ];
         }
 
         $this->config->setAppValue(
             self::APP_ID,
             'sites',
-            json_encode(
-                $cleanSites,
-                JSON_UNESCAPED_SLASHES
-            )
+            json_encode($cleanSites, JSON_UNESCAPED_SLASHES)
         );
 
         return new JSONResponse([
