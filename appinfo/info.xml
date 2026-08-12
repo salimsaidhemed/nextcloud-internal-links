@@ -8,7 +8,7 @@
         Provides a configurable application launcher for internal
         and business services.
     </description>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <licence>agpl</licence>
     <author>TCADC</author>
     <namespace>InternalLinks</namespace>

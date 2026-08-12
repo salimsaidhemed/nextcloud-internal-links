@@ -26,6 +26,17 @@ class SitesController extends Controller
         'mail',
         'money',
         'versions',
+        'schedule',
+        'schedule-1',
+        'schedule-2',
+        'schedule-3',
+        'payroll',
+        'chat',
+        'gmail',
+        'invoicing',
+        'management',
+        'maps',
+        'veteran',
     ];
 
     public function __construct(

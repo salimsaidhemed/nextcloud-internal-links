@@ -20,7 +20,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         ['send', 'Send'],
         ['mail', 'Mail'],
         ['money', 'Money'],
-        ['versions', 'Versions'],
+        ['schedule', 'Schedule'],
+        ['schedule-1', 'Schedule 1'],
+        ['schedule-2', 'Schedule 2'],
+        ['schedule-3', 'Schedule 3'],
+        ['payroll', 'Payroll'],
+        ['chat', 'Chat'],
+        ['gmail', 'Gmail'],
+        ['invoicing', 'Invoicing'],
+        ['management', 'Management'],
+        ['maps', 'Maps'],
+        ['veteran', 'Veteran'],
+
     ];
 
     function iconPath(icon) {
