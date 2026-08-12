@@ -8,6 +8,7 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\IConfig;
 use OCP\INavigationManager;
 use OCP\IURLGenerator;
 
@@ -30,21 +31,25 @@ class Application extends App implements IBootstrap
 
         $navigationManager = $serverContainer->get(INavigationManager::class);
         $urlGenerator = $serverContainer->get(IURLGenerator::class);
+        $config = $serverContainer->get(IConfig::class);
 
-        $navigationManager->add(function () use (
-            $urlGenerator
-        ): array {
+        $navigationManager->add(function () use ($urlGenerator, $config): array {
+            $displayName = trim($config->getAppValue(
+                self::APP_ID,
+                'display_name',
+                'Business Links'
+            ));
+
+            if ($displayName === '') {
+                $displayName = 'Business Links';
+            }
+
             return [
                 'id' => self::APP_ID,
                 'order' => 20,
-                'href' => $urlGenerator->linkToRoute(
-                    'internal_links.page.index'
-                ),
-                'icon' => $urlGenerator->imagePath(
-                    self::APP_ID,
-                    'app-nav.svg'
-                ),
-                'name' => 'Internal Links',
+                'href' => $urlGenerator->linkToRoute('internal_links.page.index'),
+                'icon' => $urlGenerator->imagePath(self::APP_ID, 'app-nav.svg'),
+                'name' => $displayName,
             ];
         });
     }
