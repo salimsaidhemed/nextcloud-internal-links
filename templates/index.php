@@ -1,6 +1,7 @@
 <?php
 script('internal_links', 'page');
 style('internal_links', 'page');
+style('internal_links', 'customization');
 
 $useDefaultColors = (bool)($_['useDefaultColors'] ?? true);
 $panelColor = (string)($_['panelColor'] ?? '#ffffff');
