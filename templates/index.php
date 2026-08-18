@@ -1,5 +1,6 @@
 <?php
 script('internal_links', 'page');
+script('internal_links', 'panel-resize');
 style('internal_links', 'page');
 style('internal_links', 'customization');
 
@@ -19,7 +20,7 @@ $panelStyle = $useDefaultColors ? '' : '--internal-links-panel-color: ' . $panel
         </div>
     </header>
 
-    <section class="applications-window<?php p($panelClass); ?>"<?php if ($panelStyle !== ''): ?> style="<?php p($panelStyle); ?>"<?php endif; ?>>
+    <section id="applications-window" class="applications-window<?php p($panelClass); ?>"<?php if ($panelStyle !== ''): ?> style="<?php p($panelStyle); ?>"<?php endif; ?>>
         <div class="applications-toolbar">
             <div class="applications-toolbar-title">Applications</div>
 
@@ -35,12 +36,34 @@ $panelStyle = $useDefaultColors ? '' : '--internal-links-panel-color: ' . $panel
                 >
             </div>
 
-            <div
-                id="applications-count"
-                class="applications-toolbar-count"
-                aria-live="polite"
-            >
-                Loading…
+            <div class="applications-toolbar-right">
+                <div
+                    id="applications-count"
+                    class="applications-toolbar-count"
+                    aria-live="polite"
+                >
+                    Loading…
+                </div>
+
+                <button
+                    id="applications-maximize"
+                    class="applications-toolbar-button"
+                    type="button"
+                    title="Maximize panel"
+                    aria-label="Maximize panel"
+                >
+                    ⛶
+                </button>
+
+                <button
+                    id="applications-reset-size"
+                    class="applications-toolbar-button"
+                    type="button"
+                    title="Reset panel size"
+                    aria-label="Reset panel size"
+                >
+                    ↺
+                </button>
             </div>
         </div>
 
@@ -49,6 +72,14 @@ $panelStyle = $useDefaultColors ? '' : '--internal-links-panel-color: ' . $panel
                 Loading applications…
             </div>
         </main>
+
+        <div
+            id="applications-resize-handle"
+            class="applications-resize-handle"
+            role="separator"
+            aria-label="Resize application panel"
+            aria-orientation="horizontal"
+        ></div>
     </section>
 
     <footer class="internal-links-footer">
