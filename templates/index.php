@@ -1,6 +1,12 @@
 <?php
 script('internal_links', 'page');
 style('internal_links', 'page');
+style('internal_links', 'customization');
+
+$useDefaultColors = (bool)($_['useDefaultColors'] ?? true);
+$panelColor = (string)($_['panelColor'] ?? '#ffffff');
+$panelClass = $useDefaultColors ? '' : ' custom-panel-color';
+$panelStyle = $useDefaultColors ? '' : '--internal-links-panel-color: ' . $panelColor . ';';
 ?>
 
 <div id="internal-links-app">
@@ -13,7 +19,7 @@ style('internal_links', 'page');
         </div>
     </header>
 
-    <section class="applications-window">
+    <section class="applications-window<?php p($panelClass); ?>"<?php if ($panelStyle !== ''): ?> style="<?php p($panelStyle); ?>"<?php endif; ?>>
         <div class="applications-toolbar">
             <div class="applications-toolbar-title">Applications</div>
 

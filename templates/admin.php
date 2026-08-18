@@ -3,6 +3,7 @@
 script('internal_links', 'admin');
 script('internal_links', 'branding-admin');
 style('internal_links', 'admin');
+style('internal_links', 'branding-admin');
 
 ?>
 
@@ -37,6 +38,35 @@ style('internal_links', 'admin');
                 placeholder="Quick access to business services."
             >
             <p class="settings-hint">Optional text shown beneath the page title.</p>
+        </div>
+
+        <div class="branding-field branding-color-field">
+            <label for="internal-links-panel-color">Panel color</label>
+            <div class="branding-color-controls">
+                <input
+                    id="internal-links-panel-color"
+                    type="color"
+                    value="#ffffff"
+                    aria-label="Panel color"
+                >
+                <input
+                    id="internal-links-panel-color-text"
+                    type="text"
+                    value="#ffffff"
+                    maxlength="7"
+                    pattern="#[0-9A-Fa-f]{6}"
+                    aria-label="Panel color hexadecimal value"
+                >
+            </div>
+            <p class="settings-hint">Choose a custom background color for the applications panel.</p>
+        </div>
+
+        <div class="branding-field branding-switch-field">
+            <label class="branding-switch-label" for="internal-links-default-colors">
+                <input id="internal-links-default-colors" type="checkbox" checked>
+                <span>Use default Nextcloud colors</span>
+            </label>
+            <p class="settings-hint">When enabled, the launcher follows the active Nextcloud light or dark theme.</p>
         </div>
 
         <div class="branding-actions">

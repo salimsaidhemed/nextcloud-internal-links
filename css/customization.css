@@ -1,0 +1,18 @@
+#internal-links-app {
+    width: min(1480px, calc(100% - 32px));
+}
+
+.applications-window.custom-panel-color {
+    background: var(--internal-links-panel-color);
+}
+
+.applications-window.custom-panel-color #applications-grid,
+.applications-window.custom-panel-color .application-category-title {
+    background: var(--internal-links-panel-color);
+}
+
+@media (max-width: 700px) {
+    #internal-links-app {
+        width: calc(100% - 20px);
+    }
+}

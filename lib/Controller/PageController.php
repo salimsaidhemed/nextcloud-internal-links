@@ -38,6 +38,16 @@ class PageController extends Controller
             $displayName = 'Business Links';
         }
 
+        $panelColor = strtolower(trim($this->config->getAppValue(
+            self::APP_ID,
+            'panel_color',
+            '#ffffff'
+        )));
+
+        if (!preg_match('/^#[0-9a-f]{6}$/', $panelColor)) {
+            $panelColor = '#ffffff';
+        }
+
         return new TemplateResponse(
             self::APP_ID,
             'index',
@@ -49,6 +59,12 @@ class PageController extends Controller
                     'subtitle',
                     'Quick access to business services.'
                 ),
+                'panelColor' => $panelColor,
+                'useDefaultColors' => $this->config->getAppValue(
+                    self::APP_ID,
+                    'use_default_colors',
+                    '1'
+                ) !== '0',
             ]
         );
     }
