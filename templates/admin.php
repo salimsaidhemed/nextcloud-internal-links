@@ -3,6 +3,7 @@
 script('internal_links', 'admin');
 script('internal_links', 'branding-admin');
 style('internal_links', 'admin');
+style('internal_links', 'branding-admin');
 
 ?>
 
