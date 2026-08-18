@@ -1,5 +1,89 @@
 #internal-links-app {
-    width: min(1480px, calc(100% - 32px));
+    width: calc(100% - 32px);
+    max-width: none;
+}
+
+.applications-window {
+    position: relative;
+    width: 1280px;
+    height: 560px;
+    min-width: 700px;
+    min-height: 420px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 180px);
+    margin-inline: auto;
+}
+
+.applications-window #applications-grid {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+}
+
+.applications-toolbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.applications-toolbar-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-main-text);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.applications-toolbar-button:hover,
+.applications-toolbar-button:focus-visible {
+    border-color: var(--color-border);
+    background: var(--color-background-hover);
+    outline: none;
+}
+
+.applications-resize-handle {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    z-index: 20;
+    width: 28px;
+    height: 28px;
+    cursor: nwse-resize;
+    opacity: 0.7;
+    touch-action: none;
+}
+
+.applications-resize-handle::before {
+    content: '';
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 14px;
+    height: 14px;
+    border-right: 2px solid var(--color-text-maxcontrast);
+    border-bottom: 2px solid var(--color-text-maxcontrast);
+    border-radius: 0 0 3px 0;
+}
+
+.applications-resize-handle:hover,
+.applications-resize-handle:focus-visible {
+    opacity: 1;
+}
+
+body.internal-links-resizing {
+    cursor: nwse-resize !important;
+    user-select: none;
 }
 
 .applications-window.custom-panel-color {
@@ -14,5 +98,23 @@
 @media (max-width: 700px) {
     #internal-links-app {
         width: calc(100% - 20px);
+    }
+
+    .applications-window {
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0;
+        min-height: 0;
+        max-height: none;
+    }
+
+    .applications-window #applications-grid {
+        min-height: 260px;
+        max-height: calc(100vh - 260px);
+    }
+
+    .applications-resize-handle,
+    .applications-toolbar-button {
+        display: none;
     }
 }

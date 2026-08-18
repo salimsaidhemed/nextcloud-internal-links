@@ -7,25 +7,16 @@
     background: var(--color-main-background);
 }
 
-.branding-field {
-    margin-bottom: 18px;
-}
+.branding-field { margin-bottom: 18px; }
+.branding-field > label { display: block; margin-bottom: 6px; font-weight: 600; }
+.branding-field input[type="text"] { width: min(520px, 100%); box-sizing: border-box; }
 
-.branding-field > label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
-
-.branding-field input[type="text"] {
-    width: min(520px, 100%);
-    box-sizing: border-box;
-}
-
-.branding-color-controls {
+.branding-color-controls,
+.branding-size-controls {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .branding-color-controls input[type="color"] {
@@ -37,10 +28,9 @@
     background: var(--color-main-background);
 }
 
-.branding-color-controls input[type="text"] {
-    width: 110px;
-    font-family: monospace;
-}
+.branding-color-controls input[type="text"] { width: 110px; font-family: monospace; }
+.branding-size-controls label { font-weight: 600; }
+.branding-size-controls input[type="number"] { width: 100px; }
 
 .branding-switch-label {
     display: inline-flex !important;
@@ -48,17 +38,7 @@
     gap: 8px;
     cursor: pointer;
 }
+.branding-switch-label input { margin: 0; }
 
-.branding-switch-label input {
-    margin: 0;
-}
-
-.branding-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-#internal-links-branding-message {
-    color: var(--color-text-maxcontrast);
-}
+.branding-actions { display: flex; align-items: center; gap: 12px; }
+#internal-links-branding-message { color: var(--color-text-maxcontrast); }
