@@ -1,15 +1,17 @@
 #internal-links-app {
-    width: min(1480px, calc(100% - 32px));
+    width: calc(100% - 32px);
+    max-width: none;
 }
 
 .applications-window {
     position: relative;
-    width: 100%;
+    width: 1280px;
     height: 560px;
     min-width: 700px;
     min-height: 420px;
-    max-width: 100%;
+    max-width: calc(100vw - 32px);
     max-height: calc(100vh - 180px);
+    margin-inline: auto;
 }
 
 .applications-window #applications-grid {
@@ -52,22 +54,23 @@
 
 .applications-resize-handle {
     position: absolute;
-    right: 4px;
-    bottom: 4px;
+    right: 2px;
+    bottom: 2px;
     z-index: 20;
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     cursor: nwse-resize;
-    opacity: 0.55;
+    opacity: 0.7;
+    touch-action: none;
 }
 
 .applications-resize-handle::before {
     content: '';
     position: absolute;
-    right: 2px;
-    bottom: 2px;
-    width: 12px;
-    height: 12px;
+    right: 5px;
+    bottom: 5px;
+    width: 14px;
+    height: 14px;
     border-right: 2px solid var(--color-text-maxcontrast);
     border-bottom: 2px solid var(--color-text-maxcontrast);
     border-radius: 0 0 3px 0;
