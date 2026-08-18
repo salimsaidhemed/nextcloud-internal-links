@@ -26,6 +26,8 @@
 }
 
 .applications-window {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     border: 1px solid var(--color-border);
     border-radius: 16px;
@@ -34,9 +36,12 @@
 }
 
 .applications-toolbar {
+    position: relative;
+    z-index: 10;
     display: grid;
     grid-template-columns: auto minmax(220px, 420px) auto;
     align-items: center;
+    flex-shrink: 0;
     gap: 16px;
     min-height: 58px;
     padding: 0 18px;
@@ -96,8 +101,35 @@
 }
 
 #applications-grid {
-    min-height: 150px;
+    min-height: 320px;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-maxcontrast) transparent;
     padding: 20px;
+}
+
+#applications-grid::-webkit-scrollbar {
+    width: 10px;
+}
+
+#applications-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#applications-grid::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: var(--color-border-maxcontrast);
+    background-clip: padding-box;
+}
+
+#applications-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-maxcontrast);
+    background-clip: padding-box;
 }
 
 .application-category {
@@ -113,11 +145,15 @@
 }
 
 .application-category-title {
+    position: sticky;
+    top: -20px;
+    z-index: 3;
     margin: 0 0 10px;
-    padding: 0 4px;
+    padding: 20px 4px 10px;
     font-size: 13px;
     font-weight: 600;
     color: var(--color-text-maxcontrast);
+    background: var(--color-main-background);
 }
 
 .application-category-grid {
@@ -298,6 +334,13 @@
     border: 0 !important;
 }
 
+@media (max-height: 680px) {
+    #applications-grid {
+        min-height: 220px;
+        max-height: calc(100vh - 245px);
+    }
+}
+
 @media (max-width: 700px) {
     #internal-links-app {
         width: calc(100% - 24px);
@@ -329,7 +372,14 @@
     }
 
     #applications-grid {
+        min-height: 260px;
+        max-height: calc(100vh - 260px);
         padding: 12px;
+    }
+
+    .application-category-title {
+        top: -12px;
+        padding: 12px 4px 8px;
     }
 
     .application-category-grid {
