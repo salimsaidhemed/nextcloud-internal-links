@@ -10,6 +10,24 @@ $panelClass = $useDefaultColors ? '' : ' custom-panel-color';
 $panelStyle = $useDefaultColors ? '' : '--internal-links-panel-color: ' . $panelColor . ';';
 $panelWidth = (int)($_['panelWidth'] ?? 1280);
 $panelHeight = (int)($_['panelHeight'] ?? 560);
+
+$useDefaultTileStyle = (bool)($_['useDefaultTileStyle'] ?? true);
+$tileDensity = in_array(($_['tileDensity'] ?? 'comfortable'), ['compact', 'comfortable', 'spacious'], true)
+    ? $_['tileDensity']
+    : 'comfortable';
+$showDescriptions = (bool)($_['showDescriptions'] ?? true);
+$panelClass .= ' tile-density-' . $tileDensity;
+if (!$showDescriptions) {
+    $panelClass .= ' hide-descriptions';
+}
+if (!$useDefaultTileStyle) {
+    $panelClass .= ' custom-tile-style';
+    $panelStyle .= '--internal-links-tile-bg:' . ($_['tileBackground'] ?? '#ffffff') . ';';
+    $panelStyle .= '--internal-links-tile-border:' . ($_['tileBorder'] ?? '#c7c7c7') . ';';
+    $panelStyle .= '--internal-links-tile-hover:' . ($_['tileHoverBorder'] ?? '#0082c9') . ';';
+    $panelStyle .= '--internal-links-icon-bg:' . ($_['iconBackground'] ?? '#f2f2f2') . ';';
+    $panelStyle .= '--internal-links-tile-radius:' . (int)($_['tileRadius'] ?? 12) . 'px;';
+}
 ?>
 
 <div id="internal-links-app">
@@ -43,7 +61,6 @@ $panelHeight = (int)($_['panelHeight'] ?? 560);
         </div>
 
         <main id="applications-grid"><div class="applications-loading">Loading applications…</div></main>
-
         <div id="applications-resize-handle" class="applications-resize-handle" role="separator" aria-label="Resize application panel horizontally and vertically"></div>
     </section>
 
