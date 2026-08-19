@@ -8,12 +8,8 @@ style('internal_links', 'branding-admin');
 ?>
 
 <div id="internal-links-admin" class="section">
-
     <h2><?php p($_['displayName'] ?? 'Business Links'); ?></h2>
-
-    <p class="settings-hint">
-        Configure the launcher branding and the links shown to users.
-    </p>
+    <p class="settings-hint">Configure the launcher branding and the links shown to users.</p>
 
     <section class="internal-links-branding">
         <h3>Appearance</h3>
@@ -44,7 +40,6 @@ style('internal_links', 'branding-admin');
                 <input id="internal-links-default-colors" type="checkbox" checked>
                 <span>Use default Nextcloud colors</span>
             </label>
-            <p class="settings-hint">When enabled, the launcher follows the active Nextcloud light or dark theme.</p>
         </div>
 
         <div class="branding-field">
@@ -57,7 +52,6 @@ style('internal_links', 'branding-admin');
                 <input id="internal-links-panel-height" type="number" min="420" max="1400" step="10" value="560">
                 <span>px</span>
             </div>
-            <p class="settings-hint">This is the size users get before they create a personal resized layout.</p>
         </div>
 
         <div class="branding-field branding-switch-field">
@@ -65,7 +59,69 @@ style('internal_links', 'branding-admin');
                 <input id="internal-links-default-panel-size" type="checkbox" checked>
                 <span>Use built-in default panel size</span>
             </label>
-            <p class="settings-hint">When enabled, the default size is 1280 × 560 px. Disable it to set a custom default size.</p>
+        </div>
+
+        <hr class="branding-divider">
+        <h3>Tile appearance</h3>
+
+        <div class="branding-field branding-switch-field">
+            <label class="branding-switch-label" for="internal-links-default-tile-style">
+                <input id="internal-links-default-tile-style" type="checkbox" checked>
+                <span>Use default tile styling</span>
+            </label>
+            <p class="settings-hint">When enabled, tile colors and borders follow the standard Nextcloud-aware design.</p>
+        </div>
+
+        <div id="internal-links-tile-style-fields">
+            <div class="branding-color-grid">
+                <div class="branding-field branding-color-field">
+                    <label for="internal-links-tile-background">Tile background</label>
+                    <div class="branding-color-controls"><input id="internal-links-tile-background" type="color" value="#ffffff"><input id="internal-links-tile-background-text" type="text" value="#ffffff" maxlength="7"></div>
+                </div>
+                <div class="branding-field branding-color-field">
+                    <label for="internal-links-tile-border">Tile border</label>
+                    <div class="branding-color-controls"><input id="internal-links-tile-border" type="color" value="#c7c7c7"><input id="internal-links-tile-border-text" type="text" value="#c7c7c7" maxlength="7"></div>
+                </div>
+                <div class="branding-field branding-color-field">
+                    <label for="internal-links-tile-hover-border">Hover / accent border</label>
+                    <div class="branding-color-controls"><input id="internal-links-tile-hover-border" type="color" value="#0082c9"><input id="internal-links-tile-hover-border-text" type="text" value="#0082c9" maxlength="7"></div>
+                </div>
+                <div class="branding-field branding-color-field">
+                    <label for="internal-links-icon-background">Icon background</label>
+                    <div class="branding-color-controls"><input id="internal-links-icon-background" type="color" value="#f2f2f2"><input id="internal-links-icon-background-text" type="text" value="#f2f2f2" maxlength="7"></div>
+                </div>
+            </div>
+
+            <div class="branding-field">
+                <label for="internal-links-tile-radius">Corner radius</label>
+                <div class="branding-inline-control"><input id="internal-links-tile-radius" type="number" min="0" max="32" step="1" value="12"><span>px</span></div>
+            </div>
+        </div>
+
+        <div class="branding-field">
+            <label for="internal-links-tile-density">Tile density</label>
+            <select id="internal-links-tile-density">
+                <option value="compact">Compact</option>
+                <option value="comfortable" selected>Comfortable</option>
+                <option value="spacious">Spacious</option>
+            </select>
+            <p class="settings-hint">Controls how many applications fit in the launcher at once.</p>
+        </div>
+
+        <div class="branding-field branding-switch-field">
+            <label class="branding-switch-label" for="internal-links-show-descriptions">
+                <input id="internal-links-show-descriptions" type="checkbox" checked>
+                <span>Show application descriptions</span>
+            </label>
+        </div>
+
+        <div class="tile-preview-wrap">
+            <span class="settings-hint">Preview</span>
+            <div id="internal-links-tile-preview" class="tile-preview-card">
+                <div class="tile-preview-icon">⌂</div>
+                <strong>Business App</strong>
+                <small>Example application description</small>
+            </div>
         </div>
 
         <div class="branding-actions">
@@ -76,12 +132,9 @@ style('internal_links', 'branding-admin');
 
     <h3>Links</h3>
     <div id="internal-links-sites"></div>
-
     <div class="internal-links-actions">
         <button id="internal-links-add" type="button" class="button">Add Link</button>
         <button id="internal-links-save" type="button" class="button primary">Save changes</button>
     </div>
-
     <div id="internal-links-message" aria-live="polite"></div>
-
 </div>
